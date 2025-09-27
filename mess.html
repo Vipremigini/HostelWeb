@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's In Mess - HostelWeb</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glow-color: #39ff14;
+            --bg-color: #0a0a0a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        .animated-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image:
+                linear-gradient(to right, rgba(57, 255, 20, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(57, 255, 20, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            from { background-position: 0 0; }
+            to { background-position: 40px 40px; }
+        }
+
+        .glow-text {
+            color: #fff;
+            text-shadow:
+                0 0 5px rgba(255,255,255,0.8),
+                0 0 15px rgba(57, 255, 20, 0.4),
+                0 0 35px rgba(57, 255, 20, 0.2);
+        }
+
+        .menu-card {
+            background-color: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2), 0 0 30px rgba(57, 255, 20, 0.1);
+            flex-grow: 1; /* Allows card to take available space */
+        }
+
+        .nav-button {
+            background-color: rgba(57, 255, 20, 0.1);
+            border: 1px solid rgba(57, 255, 20, 0.5);
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: var(--glow-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        #menu-items {
+            list-style: none;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll on hover */
+        }
+
+        #menu-items li {
+            position: relative;
+            padding: 6px 8px 6px 24px;
+            margin-bottom: 4px;
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out;
+            font-weight: 500;
+        }
+
+        #menu-items li:hover {
+            background-color: rgba(57, 255, 20, 0.1);
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        #menu-items li::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: var(--glow-color);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--glow-color);
+        }
+
+        /* Custom scrollbar for webkit browsers */
+        #menu-items::-webkit-scrollbar {
+            width: 8px;
+        }
+        #menu-items::-webkit-scrollbar-track {
+            background: rgba(57, 255, 20, 0.1);
+            border-radius: 10px;
+        }
+        #menu-items::-webkit-scrollbar-thumb {
+            background: var(--glow-color);
+            border-radius: 10px;
+        }
+        #menu-items::-webkit-scrollbar-thumb:hover {
+            background: #5cff3a;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="relative min-h-screen w-full">
+        <div class="animated-background"></div>
+
+        <header class="relative z-10 p-4 sm:p-6">
+            <nav class="container mx-auto flex justify-between items-center">
+                <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-wider">
+                    <span class="text-white">HOSTEL</span><span style="color: var(--glow-color);">WEB</span>
+                </a>
+                <a href="#" class="px-4 py-2 bg-[var(--glow-color)] text-black rounded-lg text-sm font-bold hover:shadow-[0_0_20px_var(--glow-color)] hover:brightness-110 transition-all duration-300">
+                    Submit Suggestions
+                </a>
+            </nav>
+        </header>
+
+        <main class="relative z-10">
+            <section class="py-16 md:py-24 px-4">
+                <div class="container mx-auto max-w-3xl flex flex-col">
+                    <div id="menu-display" class="menu-card rounded-2xl p-6 md:p-8 h-[500px] flex flex-col">
+                        <h1 id="meal-title" class="text-3xl md:text-4xl font-black uppercase tracking-tighter mb-6 text-center glow-text">Loading Menu...</h1>
+                        <ul id="menu-items" class="text-lg text-gray-200 flex-grow overflow-y-auto pr-2">
+                            <!-- Menu items will be injected here by JavaScript -->
+                        </ul>
+                    </div>
+
+                    <div class="mt-8 flex justify-between items-center">
+                        <button id="prev-meal" class="nav-button rounded-full p-3 text-[var(--glow-color)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        </button>
+                        <span id="current-meal-indicator" class="font-semibold text-gray-400 text-center"></span>
+                        <button id="next-meal" class="nav-button rounded-full p-3 text-[var(--glow-color)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="relative z-10 text-center p-6 mt-auto">
+            <p class="text-gray-500 text-sm">&copy; 2024 HostelWeb. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuData = {
+                // Sunday is 0, Monday is 1, etc.
+                0: { // Sunday
+                    Breakfast: ["Bread", "Butter", "Jam", "Chole Poori", "Veg Upma", "Coconut Chutney", "Tea / Coffee / Milk"],
+                    Lunch: ["Chappathi", "Chicken (Pepper / Kadai)", "Panneer Butter Masala (or) Kadai Panneer", "Dal Dhadka", "Mint Pulao", "Steamed Rice", "Garlic Rasam", "Poriyal", "Pickle", "Fryums", "Butter Milk", "Chicken Gravy"],
+                    Snacks: ["Corn / Baji", "Chutney", "Tea / Coffee"],
+                    Dinner: ["Variety Stuffing Paratha", "Curd", "Steamed Rice", "Hara Moong Dal Tadka", "Kalibamba Sambar", "Poriyal", "Rasam", "Pickle", "Fryums", "Veg Salad", "Milk", "Ice Cream", "Chicken Gravy"]
+                },
+                1: { // Monday
+                    Breakfast: ["Bread", "Butter", "Jam", "Idy", "Sambar", "Spl Chutney", "Poori", "Aloo Dal Masala", "Tea / Coffee / Milk", "Boiled Egg", "Banana"],
+                    Lunch: ["Chappathi", "Chapp Kaas", "Jeera Pulao", "Steamed Rice", "Masala Sambar", "Bagara Dal", "Mix Veg Usil", "Lemon Rasam", "Pickle", "Butter Milk", "Fryums"],
+                    Snacks: ["Pav Bhaji", "Tea / Coffee"],
+                    Dinner: ["Punjabi Paratha", "Rajma Makkan Wala", "Dosa", "Idly Podi", "Oil", "Special Chutney", "Steamed Rice", "Vegetable Dal", "Rasam", "Pickle", "Fryums", "Veg - Salad", "Mutton Gravy"]
+                },
+                2: { // Tuesday
+                    Breakfast: ["Bread", "Butter", "Jam", "Ghee Pongal", "Vadai", "Veg Koshthu", "Coconut Chutney", "Poha", "Mint Chutney", "Tea / Coffee / Milk", "Masala Omlet"],
+                    Lunch: ["Sweet", "Poori", "Mattar Ghughni", "Variety Rice", "Steamed Rice", "Sambar", "Dal Lasoni", "Tomato Rasam", "Gobi-65 / Bhindi Jaipuri", "Fryums", "Butter Milk", "Pickle"],
+                    Snacks: ["Boiled Peanut / Black Channa Sundal", "Tea / Coffee"],
+                    Dinner: ["Chappathi", "Mix veg Khurma", "Fried Rice / Noodles Manchurian Dry / Crispy Vegetable", "Steamed Rice", "Rasam", "Dal Fry", "Pickle", "Fryums", "Veg-Salad", "Milk", "Spl Fruits", "Chicken Gravy"]
+                },
+                3: { // Wednesday
+                    Breakfast: ["Bread", "Butter", "Jam", "Dosa", "Idly Podi", "Oil", "Arachivitta Sambar", "Chutney", "Chappthi Aloo Rajma Masala", "Tea / Coffee / Milk", "Banana"],
+                    Lunch: ["Butter Roti", "Aloo Palak", "Peas Pulao", "Dal Makhni", "Kadai Vegetable", "Steamed Rice", "Drumstick Brinjal Sambar", "Garlic Rasam", "Pickle", "Fryums", "Butter Milk"],
+                    Snacks: ["Veg Puff / Sweet Bun", "Juice (or) / Tea/Coffee"],
+                    Dinner: ["Chappathi", "Steamed Rice", "Dal Tadka", "Chicken Masala (Non-veg) / Panner Butter Masala", "Rasam", "Pickle", "Fryums", "Veg Salad", "Milk", "Chicken Gravy"]
+                },
+                4: { // Thursday
+                    Breakfast: ["Bread", "Butter", "Jam", "Chappathi", "Aloo Meal Maker Kasa", "Veg Samiya Kichadi", "Coconut Chutney", "Boiled Egg", "Tea / Coffee / Milk"],
+                    Lunch: ["Luchi", "Kashmiri Dum Aloo", "Onion Pulao", "Steamed Rice", "Mysore Dal Fry", "Kadi Pakoda", "Pepper Rasam", "Poriyal", "Pickle", "Fryums", "Butter Milk"],
+                    Snacks: ["Pani Poori (or) Chunda Nasta", "Tea / Coffee"],
+                    Dinner: ["Ghee Pulao / Kaji Pulao (Basmati Rice)", "Chappathi", "Muttar Paneer", "Steamed Rice", "Dal Tadka", "Rasam", "Aloo Pasmat Masala", "Fryums", "Pickle", "Veg Salad", "Milk", "Ice Cream", "Mutton Gravy"]
+                },
+                5: { // Friday
+                    Breakfast: ["Bread", "Butter", "Jam", "Podi Dosa", "Idly Podi", "Oil", "Chilli Sambar", "Chutney", "Chappathi", "Muttar Masala", "Tea / Coffee / Milk", "Boiled Egg", "Banana"],
+                    Lunch: ["Dry Jamun / Bread Halwa", "Veg Briyani", "Mix Raitha", "Bisibelebath", "Curd Rice", "Steamed Rice", "Tomato Rasam", "Aloo Gobi Adaraki", "Moongdal Tadka", "Pickle", "Fryums"],
+                    Snacks: ["Bonda / Vada", "Chutney", "Tea / Coffee"],
+                    Dinner: ["Chole Bhature", "Steamed Rice", "Tomato Dal", "Samba Rava Upma", "Coconut Chutney", "Rasam", "Cabbage Poriyal", "Pickle", "Fryums", "Veg Salad", "Milk", "Chicken Gravy"]
+                },
+                6: { // Saturday
+                    Breakfast: ["Bread", "Butter", "Jam", "Chappathi", "Veg Khurma", "Idiyapam (Lemon or Masala)", "Coconut Chutney", "Tea / Coffee / Milk", "Boiled Egg"],
+                    Lunch: ["Poori", "Dal Aloo Masala", "Veg Pulao", "Steamed Rice", "Punjab Dal Tadka", "Bhindi Do Pyaza", "Kiara Kuzhambu", "Kootu", "Jeera Rasam", "Pickle", "Special Fryums", "Butter Milk"],
+                    Snacks: ["Cake(or)Browni", "Tea / Coffee"],
+                    Dinner: ["Sweet", "Malabar Paratha", "Meal Maker Curry", "Mix Vegetable Sabji", "Steamed Rice", "Dal Makhni", "Idly Podi", "Oil", "Chutney", "Tiffen Sambar", "Rasam", "Pickle", "Fryums", "Veg Salad", "Milk", "Special Fruit", "Fish Gravy"]
+                }
+            };
+            
+            const dayOrder = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const mealOrder = ["Breakfast", "Lunch", "Snacks", "Dinner"];
+            let mealTimeline = [];
+            
+            // Create a flat timeline of all meals for the week
+            dayOrder.forEach((day, dayIndex) => {
+                mealOrder.forEach((meal, mealIndex) => {
+                    mealTimeline.push({ dayIndex, mealIndex });
+                });
+            });
+
+            let currentTimelineIndex = 0;
+            const now = new Date();
+            const currentDay = now.getDay();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            const currentTime = currentHour + currentMinute / 60;
+
+            const mealTitleEl = document.getElementById('meal-title');
+            const menuItemsEl = document.getElementById('menu-items');
+            const prevMealBtn = document.getElementById('prev-meal');
+            const nextMealBtn = document.getElementById('next-meal');
+            const indicatorEl = document.getElementById('current-meal-indicator');
+
+            function determineInitialMealIndex() {
+                const isWeekend = (currentDay === 0 || currentDay === 6); // Sun or Sat
+                const breakfastEndTime = isWeekend ? 9.5 : 9.0; // 9:30 or 9:00
+
+                if (currentTime < breakfastEndTime || currentTime >= 21.0) {
+                    return 0; // Breakfast
+                } else if (currentTime < 13.5) { // 1:30 PM
+                    return 1; // Lunch
+                } else if (currentTime < 17.5) { // 5:30 PM
+                    return 2; // Snacks
+                } else { // Until 9:00 PM
+                    return 3; // Dinner
+                }
+            }
+            
+            function updateMenu(timelineIndex) {
+                const currentPos = mealTimeline[timelineIndex];
+                const dayName = dayOrder[currentPos.dayIndex];
+                const mealName = mealOrder[currentPos.mealIndex];
+                
+                const items = menuData[currentPos.dayIndex][mealName];
+
+                mealTitleEl.textContent = `${dayName}'s ${mealName}`;
+                indicatorEl.textContent = `${dayName.toUpperCase()} - ${mealName.toUpperCase()}`;
+                menuItemsEl.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+                currentTimelineIndex = timelineIndex;
+            }
+
+            // Navigation handlers
+            nextMealBtn.addEventListener('click', () => {
+                const nextIndex = (currentTimelineIndex + 1) % mealTimeline.length;
+                updateMenu(nextIndex);
+            });
+
+            prevMealBtn.addEventListener('click', () => {
+                const prevIndex = (currentTimelineIndex - 1 + mealTimeline.length) % mealTimeline.length;
+                updateMenu(prevIndex);
+            });
+
+            // Initial load
+            const initialMealIndex = determineInitialMealIndex();
+            // Calculate the starting position in our new flat timeline
+            const initialTimelineIndex = (currentDay * mealOrder.length) + initialMealIndex;
+            updateMenu(initialTimelineIndex);
+        });
+    </script>
+</body>
+</html>
+
+
+
+
