@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelWeb - Your Campus, Connected.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the glowing effect and modern theme */
+        :root {
+            --glow-color: #39ff14; /* A vibrant neon green */
+            --bg-color: #0a0a0a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Animated background grid */
+        .animated-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image:
+                linear-gradient(to right, rgba(57, 255, 20, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(57, 255, 20, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            from { background-position: 0 0; }
+            to { background-position: 40px 40px; }
+        }
+
+        /* Glowing text effect */
+        .glow-text {
+            color: #fff;
+            text-shadow:
+                0 0 5px rgba(255,255,255,0.8),
+                0 0 15px rgba(57, 255, 20, 0.4),
+                0 0 35px rgba(57, 255, 20, 0.2);
+        }
+
+        /* Glowing button styles */
+        .feature-card {
+            background-color: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: rgba(57, 255, 20, 0.8);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.4), 0 0 30px rgba(57, 255, 20, 0.2);
+        }
+
+        .feature-card svg {
+            color: var(--glow-color);
+            filter: drop-shadow(0 0 5px var(--glow-color));
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover svg {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Wrapper for all content -->
+    <div class="relative min-h-screen w-full">
+
+        <!-- Animated Background Grid -->
+        <div class="animated-background"></div>
+
+        <!-- Header -->
+        <header class="relative z-10 p-4 sm:p-6">
+            <nav class="container mx-auto flex justify-between items-center">
+                <h1 class="text-2xl md:text-3xl font-bold tracking-wider">
+                    <span class="text-white">HOSTEL</span><span style="color: var(--glow-color);">WEB</span>
+                </h1>
+                <a href="#" class="px-4 py-2 bg-[var(--glow-color)] text-black rounded-lg text-sm font-bold hover:shadow-[0_0_20px_var(--glow-color)] hover:brightness-110 transition-all duration-300">
+                    Submit Suggestions
+                </a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="relative z-10">
+            
+            <!-- Hero Section -->
+            <section class="text-center py-20 md:py-32 px-4">
+                <div class="container mx-auto">
+                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 glow-text">
+                        Your Hostel,<br>Connected.
+                    </h1>
+                    <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                        The all-in-one digital hub for seamless hostel living. Manage complaints, check the menu, apply for passes, and stay updated—all in one place.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Features Grid Section -->
+            <section class="py-16 px-4">
+                <div class="container mx-auto">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                        
+                        <!-- 1. What Is In Mess -->
+                        <a href="#" class="feature-card rounded-xl p-6 flex flex-col items-center text-center">
+                            <div class="mb-4">
+                                <!-- Icon: Cutlery -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3z"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">What's In Mess</h3>
+                            <p class="text-gray-400 text-sm">View the daily and weekly mess menu at a glance.</p>
+                        </a>
+
+                        <!-- 2. Raise a Complaint -->
+                        <a href="#" class="feature-card rounded-xl p-6 flex flex-col items-center text-center">
+                            <div class="mb-4">
+                                <!-- Icon: Wrench -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Raise a Complaint</h3>
+                            <p class="text-gray-400 text-sm">Submit maintenance or other issues and track their status.</p>
+                        </a>
+
+                        <!-- 3. Events -->
+                        <a href="#" class="feature-card rounded-xl p-6 flex flex-col items-center text-center">
+                            <div class="mb-4">
+                                <!-- Icon: Calendar -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Events</h3>
+                            <p class="text-gray-400 text-sm">Stay updated with the latest hostel events and activities.</p>
+                        </a>
+
+                        <!-- 4. Out Pass Application -->
+                        <a href="#" class="feature-card rounded-xl p-6 flex flex-col items-center text-center">
+                            <div class="mb-4">
+                                <!-- Icon: File Text -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Out Pass Application</h3>
+                            <p class="text-gray-400 text-sm">Apply for your day or night out passes digitally.</p>
+                        </a>
+
+                        <!-- 5. Lost and Found -->
+                        <a href="#" class="feature-card rounded-xl p-6 flex flex-col items-center text-center">
+                            <div class="mb-4">
+                                <!-- Icon: Search -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Lost and Found</h3>
+                            <p class="text-gray-400 text-sm">Report lost items or post about items you've found.</p>
+                        </a>
+
+                        <!-- 6. Announcements -->
+                        <a href="#" class="feature-card rounded-xl p-6 flex flex-col items-center text-center">
+                            <div class="mb-4">
+                                <!-- Icon: Megaphone -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Announcements</h3>
+                            <p class="text-gray-400 text-sm">Access the official digital notice board for important updates.</p>
+                        </a>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="relative z-10 text-center p-6 mt-16">
+            <p class="text-gray-500 text-sm">&copy; 2024 HostelWeb. All Rights Reserved.</p>
+        </footer>
+
+    </div>
+</body>
+</html>
+
+
+
+
+
